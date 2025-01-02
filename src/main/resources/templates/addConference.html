@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Add Conference</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 30px;
+    }
+
+    form {
+      width: 80%;
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      form {
+        width: 90%;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+<h1>Add Conference</h1>
+
+<form action="/addConference" method="post">
+  <div>
+    <label for="titre">Title:</label>
+    <input type="text" id="titre" name="titre" required />
+  </div>
+
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required />
+  </div>
+
+  <div>
+    <label for="heureDebut">Start Time:</label>
+    <input type="time" id="heureDebut" name="heureDebut" required />
+  </div>
+
+  <div>
+    <label for="heureFin">End Time:</label>
+    <input type="time" id="heureFin" name="heureFin" required />
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+  </div>
+
+  <div>
+    <label for="speaker-id">Speaker:</label>
+    <select id="speaker-id" name="speaker-id" required>
+      <option th:each="speaker : ${speakers}" th:value="${speaker.id}" th:text="${speaker.nom}"></option>
+    </select>
+  </div>
+
+  <div>
+    <button type="submit">Add Conference</button>
+  </div>
+</form>
+
+<div th:if="${errorMessage}">
+  <p class="error-message" th:text="${errorMessage}"></p>
+</div>
+</body>
+</html>
